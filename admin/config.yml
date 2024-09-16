@@ -1,0 +1,2402 @@
+backend:
+  name: git-gateway
+  accept_roles:
+    - admin
+    - editor
+  branch: main
+media_folder: theme/assets/images
+public_folder: /assets/images
+collections:
+  - name: pages
+    label: Pages
+    identifier_field: title
+    extension: md
+    create: false
+    delete: false
+    slug: '{{slug}}'
+    editor:
+      preview: false
+    folder: cms/pages
+    fields:
+      - label: Title
+        name: title
+        widget: string
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '{{slug}}.html'
+      - &ref_0
+        label: Seo
+        name: seo
+        widget: object
+        collapsed: true
+        fields:
+          - label: Title
+            name: title
+            widget: string
+            required: false
+          - label: Description
+            name: description
+            widget: string
+            required: false
+          - label: No index
+            name: noindex
+            widget: boolean
+            default: false
+            required: false
+          - label: Open Graph Title
+            name: og:title
+            widget: string
+            required: false
+          - label: Open Graph Image
+            name: og:image
+            widget: image
+            required: false
+            media_library:
+              config:
+                multiple: false
+          - label: Twitter Title
+            name: twitter:title
+            widget: string
+            default: summary
+            required: false
+          - label: Twitter Card
+            name: twitter:card
+            widget: string
+            default: summary
+            required: false
+          - label: Twitter Site
+            name: twitter:site
+            widget: string
+            required: false
+          - label: Twitter Creator
+            name: twitter:creator
+            widget: string
+            required: false
+          - label: Twitter Image
+            name: twitter:image
+            widget: image
+            required: false
+            media_library:
+              config:
+                multiple: false
+          - label: Additional HTML tags
+            name: additional_tags
+            widget: text
+            required: false
+  - name: blog
+    label: Blog Posts
+    folder: cms/blog
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - label: Body
+        name: body
+        widget: markdown
+        required: false
+      - hint: For Imported Content
+        name: f_original-publication-date
+        label: Original Publication Date
+        widget: datetime
+        required: false
+      - hint: ''
+        name: f_primary-category
+        label: Primary Category
+        widget: relation
+        required: false
+        collection: category
+        value_field: cms/category/{{slug}}.md
+        search_fields:
+          - slug
+          - name
+        display_fields:
+          - title
+        multiple: false
+      - hint: ''
+        name: f_tags
+        label: Tags
+        widget: relation
+        required: false
+        collection: category
+        value_field: cms/category/{{slug}}.md
+        search_fields:
+          - slug
+          - name
+        display_fields:
+          - title
+        multiple: true
+      - hint: ''
+        name: f_exceprt
+        label: Exceprt
+        widget: text
+        required: false
+      - hint: ''
+        name: f_hero-image
+        label: Hero Image
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: blog
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[blog].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_0
+  - name: testimonials
+    label: Testimonials
+    folder: cms/testimonials
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: f_title
+        label: Title
+        widget: string
+        required: false
+      - hint: ''
+        name: f_business-organization
+        label: Business/Organization
+        widget: string
+        required: false
+      - hint: ''
+        name: f_quote
+        label: Quote
+        widget: text
+        required: false
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: testimonials
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[testimonials].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_0
+  - name: services
+    label: Services
+    folder: cms/services
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: f_image
+        label: Image
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_link
+        label: Link
+        widget: string
+        required: false
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: services
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[services].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_0
+  - name: media_hits
+    label: Media Hits
+    folder: cms/media-hits
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: f_client
+        label: Client
+        widget: string
+        required: false
+      - hint: Publication Name
+        name: f_outlet
+        label: Outlet
+        widget: string
+        required: false
+      - hint: SVG
+        name: f_outlet-logo
+        label: Outlet Logo
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: Author's NAme
+        name: f_byline
+        label: Byline
+        widget: string
+        required: false
+      - hint: ''
+        name: f_publication-date
+        label: Publication Date
+        widget: datetime
+        required: false
+      - hint: Headline or Pull Quote
+        name: f_headline
+        label: Headline
+        widget: string
+        required: false
+      - hint: WebP, Medium Quality, 1000px
+        name: f_image
+        label: Image
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_url
+        label: URL
+        widget: string
+        required: false
+      - hint: ''
+        name: f_sort-order
+        label: Sort Order
+        widget: number
+        required: false
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: media-hits
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[media-hits].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_0
+  - name: category
+    label: Categories
+    folder: cms/category
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: category
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[category].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_0
+  - name: case_studies
+    label: Case Studies
+    folder: cms/case-studies
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - hint: '1000px - 1:1 Aspect Ratio - Use WebP Format '
+        name: f_thumbnail-image
+        label: Thumbnail Image
+        widget: object
+        required: true
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: true
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_primary-category
+        label: Primary Category
+        widget: relation
+        required: true
+        collection: category
+        value_field: cms/category/{{slug}}.md
+        search_fields:
+          - slug
+          - name
+        display_fields:
+          - title
+        multiple: false
+      - hint: ''
+        name: f_excerpt
+        label: Excerpt
+        widget: text
+        required: false
+      - hint: ''
+        name: f_additional-categories
+        label: Additional Categories
+        widget: relation
+        required: true
+        collection: category
+        value_field: cms/category/{{slug}}.md
+        search_fields:
+          - slug
+          - name
+        display_fields:
+          - title
+        multiple: true
+      - hint: ''
+        name: f_slugs
+        label: slugs
+        widget: string
+        required: false
+      - hint: ''
+        name: f_sort-order
+        label: Sort Order
+        widget: number
+        required: false
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: case-studies
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[case-studies].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_0
+  - name: team_members
+    label: Team Members
+    folder: cms/team-members
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - label: Bio
+        name: body
+        widget: markdown
+        required: false
+      - hint: ''
+        name: f_sort-order
+        label: Sort Order
+        widget: number
+        required: false
+      - hint: Type in sentences case, will appear as all caps
+        name: f_title
+        label: Title
+        widget: string
+        required: false
+      - hint: ''
+        name: f_headshot
+        label: Headshot
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_headshot-alternate
+        label: Headshot (Alternate)
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_full-bio
+        label: Full Bio
+        widget: markdown
+        required: false
+      - hint: ''
+        name: f_linkedin
+        label: LinkedIn
+        widget: string
+        required: false
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: team-members
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[team-members].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_0
+  - name: clients
+    label: Clients
+    folder: cms/clients
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: f_logo
+        label: Logo
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_website
+        label: Website
+        widget: string
+        required: false
+      - hint: Display on homepage
+        name: f_featured
+        label: Featured
+        widget: boolean
+        required: false
+        default: false
+      - hint: ''
+        name: f_sort-order
+        label: Sort Order
+        widget: number
+        required: false
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: clients
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[clients].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_0
+  - name: reels
+    label: Reels
+    folder: cms/reels
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - hint: https://cdn.shelleymcarthur.com/[RESOURCE KEY]
+        name: f_amazon-s3-resource
+        label: 320x640
+        widget: string
+        required: true
+      - hint: ''
+        name: f_180x320
+        label: 180x320
+        widget: string
+        required: false
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: reels
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[reels].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_0
+  - name: as_seen_in
+    label: As Seen Ins
+    folder: cms/as-seen-in
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: f_logo
+        label: Logo
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_url
+        label: URL
+        widget: string
+        required: false
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: as-seen-in
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[as-seen-in].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_0
+  - label: Theme Settings
+    name: settings
+    identifier_field: title
+    extension: json
+    create: false
+    delete: false
+    slug: '{{slug}}'
+    editor:
+      preview: false
+    files:
+      - label: General
+        name: site
+        file: cms/_data/settings/site.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: General
+          - hint: Full domain url (needed for a correct sitemap file)
+            name: domain
+            label: Domain
+            widget: string
+            required: false
+          - name: favicon
+            label: Favicon
+            widget: image
+            allow_multiple: false
+            required: false
+          - name: apple_touch_icon
+            label: Apple Touch Icon
+            widget: image
+            allow_multiple: false
+            required: false
+          - name: header_additional_content
+            label: Additional Content Header
+            hint: Content here will be placed before </head> tag
+            widget: text
+            required: false
+          - name: footer_additional_content
+            label: Additional Content Footer
+            hint: Content here will be placed before </body> tag
+            widget: text
+            required: false
+          - name: images_optimization
+            label: Images Optimization
+            widget: object
+            collapsed: false
+            fields:
+              - label: Image Formats
+                name: formats
+                widget: select
+                multiple: true
+                options:
+                  - label: Avif
+                    value: avif
+                  - label: Webp
+                    value: webp
+              - label: Image Dimensions
+                name: dimensions
+                widget: select
+                multiple: true
+                options:
+                  - label: '500'
+                    value: 500
+                  - label: '800'
+                    value: 800
+                  - label: '1080'
+                    value: 1080
+                  - label: '1600'
+                    value: 1600
+                  - label: '2000'
+                    value: 2000
+                  - label: '2600'
+                    value: 2600
+      - label: Colors
+        name: colors
+        file: cms/_data/colors.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Colors
+      - label: Texts
+        name: texts
+        file: cms/_data/texts.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Texts
+          - hint: 'Original text: Our Process, key: -147762a5'
+            label: Text
+            name: '-147762a5'
+            widget: string
+          - hint: 'Original text: Our Work, key: 2a8fa5'
+            label: Text
+            name: 2a8fa5
+            widget: string
+          - hint: 'Original text: Who We Are, key: -7dbf273c'
+            label: Text
+            name: '-7dbf273c'
+            widget: string
+          - hint: >-
+              Original text: We are storytellers & reputation managers for
+              brands in Food & Beverage and Hospitality., key: 57a24b35
+            label: Text
+            name: 57a24b35
+            widget: string
+          - hint: 'Original text: Let''s Talk, key: -13ef5b1b'
+            label: Text
+            name: '-13ef5b1b'
+            widget: string
+          - hint: 'Original text: SMC COMMUNICATIONS, key: 48127f34'
+            label: Text
+            name: 48127f34
+            widget: string
+          - hint: 'Original text: +1 (604) 219-9042 , key: -107ab38b'
+            label: Text
+            name: '-107ab38b'
+            widget: string
+          - hint: 'Original text: talk@shelleymcarthur.com, key: 5a046bb'
+            label: Text
+            name: 5a046bb
+            widget: string
+          - hint: 'Original text: 307-1120, key: -28d432f'
+            label: Text
+            name: '-28d432f'
+            widget: string
+          - hint: |-
+              Original text:  Hamilton Street, Vancouver, BC
+                            , key: -584589ad
+            label: Text
+            name: '-584589ad'
+            widget: string
+          - hint: 'Original text: Menu, key: 24897f'
+            label: Text
+            name: 24897f
+            widget: string
+          - hint: 'Original text: How we do it, key: 34a1f2fe'
+            label: Text
+            name: 34a1f2fe
+            widget: string
+          - hint: >-
+              Original text: We follow our proven process, then execute & modify
+              to stay nimble., key: 6c678aff
+            label: Text
+            name: 6c678aff
+            widget: string
+          - hint: >-
+              Original text: Consumers are more apt to believe in a business
+              that’s talked about by others before it’s talked about by the
+              brand., key: 3895c4ae
+            label: Text
+            name: 3895c4ae
+            widget: text
+          - hint: >-
+              Original text: Using PR at all levels of the sales funnel helps
+              your team whet the appetite of new prospects and spark repeat
+              business in your Food & Beverage or Hospitality niche. We open
+              doors to fresh perspectives on your unique offerings, influencing
+              buyers at key points along their journey., key: 54b532cb
+            label: Text
+            name: 54b532cb
+            widget: text
+          - hint: 'Original text: Let''s get started, key: 2f519b7e'
+            label: Text
+            name: 2f519b7e
+            widget: string
+          - hint: 'Original text: Our , key: 25ae74'
+            label: Text
+            name: 25ae74
+            widget: string
+          - hint: 'Original text: Proven, key: -71019a0e'
+            label: Text
+            name: '-71019a0e'
+            widget: string
+          - hint: 'Original text:  Process, key: 4ceb522f'
+            label: Text
+            name: 4ceb522f
+            widget: string
+          - hint: 'Original text: 01., key: ba4d'
+            label: Text
+            name: ba4d
+            widget: string
+          - hint: 'Original text: Kick Off, key: -2fb6336b'
+            label: Text
+            name: '-2fb6336b'
+            widget: string
+          - hint: 'Original text: Discovery | Research | Set KPIs, key: -2f0fefe'
+            label: Text
+            name: '-2f0fefe'
+            widget: string
+          - hint: >-
+              Original text: We immerse ourselves in your brand to understand
+              the unique pain points and needs of your business, uncover overall
+              goals and objectives and work hand-in-hand with your team to get
+              the full picture. We’re passionate, results-driven and we cut to
+              the chase so we can focus on a strategic approach to positively
+              build your brand and tell your unique story., key: -7a5a11a8
+            label: Text
+            name: '-7a5a11a8'
+            widget: text
+          - hint: 'Original text: 02., key: ba6c'
+            label: Text
+            name: ba6c
+            widget: string
+          - hint: 'Original text: Plan, key: 25ff49'
+            label: Text
+            name: 25ff49
+            widget: string
+          - hint: 'Original text: Strategy | Buy-In | Scheduling, key: -31a4105'
+            label: Text
+            name: '-31a4105'
+            widget: string
+          - hint: >-
+              Original text: Whether we’re working with clients on a project
+              basis or as part of a long-term relationship, we understand the
+              unique needs of your business and the value of a strong return on
+              investment. We take a multi-faceted approach to integrated
+              marketing, media relations and digital storytelling, securing
+              high-profile feature opportunities for clients and increased their
+              media exposure across a range of outlets., key: -13308d59
+            label: Text
+            name: '-13308d59'
+            widget: text
+          - hint: 'Original text: 03., key: ba8b'
+            label: Text
+            name: ba8b
+            widget: string
+          - hint: 'Original text: Implement, key: 652b6d03'
+            label: Text
+            name: 652b6d03
+            widget: string
+          - hint: 'Original text: Design | Deploy | Announce, key: 5f348080'
+            label: Text
+            name: 5f348080
+            widget: string
+          - hint: >-
+              Original text: We are reputation innovators who build meaningful
+              relationships with the community, media and partners to accelerate
+              engagement and bring your brand to the next level. We craft
+              campaigns, experiences and creative that deliver, connecting you
+              with your desired audience in a memorable and unexpected way.,
+              key: 15d03f27
+            label: Text
+            name: 15d03f27
+            widget: text
+          - hint: 'Original text: 04., key: baaa'
+            label: Text
+            name: baaa
+            widget: string
+          - hint: 'Original text: Evaluate, key: d7f10b9'
+            label: Text
+            name: d7f10b9
+            widget: string
+          - hint: 'Original text: Debrief | Report | Takeaways, key: 646a42f9'
+            label: Text
+            name: 646a42f9
+            widget: string
+          - hint: >-
+              Original text: Demonstrating the impact of our work through data
+              and insights from your bottom line is the ultimate measure of
+              success. With Shared Reports baked into our overall offering, our
+              monthly success metrics will lean into your KPIs to ensure the
+              right modifications are being made to seek out the desired
+              results., key: -15aff8f3
+            label: Text
+            name: '-15aff8f3'
+            widget: text
+          - hint: "Original text: We’re the ones BTS keeping you \Ltop-of-mind, \_seen & heard., key: -22e6e428"
+            label: Text
+            name: '-22e6e428'
+            widget: string
+          - hint: 'Original text: Ready to get started? , key: 11eda7d0'
+            label: Text
+            name: 11eda7d0
+            widget: string
+          - hint: 'Original text: Let’s talk about a plan, key: -4ca9e63c'
+            label: Text
+            name: '-4ca9e63c'
+            widget: string
+          - hint: 'Original text: Services, key: 560f747e'
+            label: Text
+            name: 560f747e
+            widget: string
+          - hint: 'Original text: Contact, key: -64104400'
+            label: Text
+            name: '-64104400'
+            widget: string
+          - hint: 'Original text: +1 (604) 219-9042, key: -4adaaaf5'
+            label: Text
+            name: '-4adaaaf5'
+            widget: string
+          - hint: 'Original text: 307-1120 Hamilton St., key: -6e04208'
+            label: Text
+            name: '-6e04208'
+            widget: string
+          - hint: 'Original text: Vancouver, BC V6B 2S2, key: beeccc5'
+            label: Text
+            name: beeccc5
+            widget: string
+          - hint: 'Original text: SMC Communications Inc., key: -656f2a84'
+            label: Text
+            name: '-656f2a84'
+            widget: string
+          - hint: 'Original text: Our Team, key: 290af1'
+            label: Text
+            name: 290af1
+            widget: string
+          - hint: 'Original text: Careers, key: -7bc27f6b'
+            label: Text
+            name: '-7bc27f6b'
+            widget: string
+          - hint: 'Original text: We are SMC, key: 537ed62b'
+            label: Text
+            name: 537ed62b
+            widget: string
+          - hint: >-
+              Original text: We believe in intentional brand reputation
+              management., key: 4886c563
+            label: Text
+            name: 4886c563
+            widget: string
+          - hint: 'Original text: The SMC , key: 41ae1686'
+            label: Text
+            name: 41ae1686
+            widget: string
+          - hint: 'Original text: difference, key: 6704b53d'
+            label: Text
+            name: 6704b53d
+            widget: string
+          - hint: >-
+              Original text: We are an award-winning public relations and
+              marketing consultancy providing imaginative, influential and
+              comprehensive communications strategies for a range of businesses
+              in hospitality and beyond. Collectively, we have touched brands in
+              Restaurants, Destination Tourism, Alcohol, Grocery, Agriculture &
+              CPG., key: 6073e595
+            label: Text
+            name: '6073e595'
+            widget: text
+          - hint: >-
+              Original text: As a full-service agency, we possess the
+              flexibility to seamlessly scale up alongside your marketing team,
+              whether you require additional resources, expanded services,
+              representation in a new market, or a broader scope of support.
+              Over twenty years of PR chops and marketing exclusively for F&B
+              and Hospitality brands provides us with a comprehensive
+              understanding of the nuances, trends, and challenges unique to
+              these industries., key: 376bf9b4
+            label: Text
+            name: 376bf9b4
+            widget: text
+          - hint: >-
+              Original text: We have a proven track record of consistently
+              delivering exceptional results while maintaining positive
+              relationships with industry experts and media alike., key:
+              -3cad991c
+            label: Text
+            name: '-3cad991c'
+            widget: text
+          - hint: 'Original text: Meet your new team., key: -445c7be3'
+            label: Text
+            name: '-445c7be3'
+            widget: string
+          - hint: 'Original text: Read More →, key: -56352af'
+            label: Text
+            name: '-56352af'
+            widget: string
+          - hint: 'Original text: No items found., key: 3d503d2b'
+            label: Text
+            name: 3d503d2b
+            widget: string
+          - hint: 'Original text: We , key: 152f2'
+            label: Text
+            name: 152f2
+            widget: string
+          - hint: 'Original text: create conversations, key: -7b9edfd4'
+            label: Text
+            name: '-7b9edfd4'
+            widget: string
+          - hint: 'Original text:  around great brands, key: 75152212'
+            label: Text
+            name: '75152212'
+            widget: string
+          - hint: 'Original text: Join our team, key: -29d26b39'
+            label: Text
+            name: '-29d26b39'
+            widget: string
+          - hint: 'Original text: Impressions Matter, key: 528b5057'
+            label: Text
+            name: 528b5057
+            widget: string
+          - hint: >-
+              Original text: Whether first impression or latest, SMC helps you
+              track KPI’s., key: -632c9f19
+            label: Text
+            name: '-632c9f19'
+            widget: string
+          - hint: 'Original text: Let''s talk , key: -68391805'
+            label: Text
+            name: '-68391805'
+            widget: string
+          - hint: 'Original text: about retention and , key: 62898dde'
+            label: Text
+            name: 62898dde
+            widget: string
+          - hint: 'Original text: growth strategies, key: -4f2238b6'
+            label: Text
+            name: '-4f2238b6'
+            widget: string
+          - hint: 'Original text: Our Work , key: 527651b'
+            label: Text
+            name: 527651b
+            widget: string
+          - hint: 'Original text: your Reputation, key: -62ca455a'
+            label: Text
+            name: '-62ca455a'
+            widget: string
+          - hint: >-
+              Original text: SMC is home to PR, Marketing & Creative experts who
+              develop integrated strategies for brands focused on Alcohol,
+              Grocery, CPG, Agriculture and Restaurant Management., key:
+              -313c80e
+            label: Text
+            name: '-313c80e'
+            widget: text
+          - hint: 'Original text: Recently Secured Coverage, key: -56dfb30d'
+            label: Text
+            name: '-56dfb30d'
+            widget: string
+          - hint: 'Original text: Recent Work, key: -18abb24a'
+            label: Text
+            name: '-18abb24a'
+            widget: string
+          - hint: 'Original text: Public Relations & Media Events, key: 60dac5ef'
+            label: Text
+            name: 60dac5ef
+            widget: string
+          - hint: >-
+              Original text: Creative Content & Marketing Strategies, key:
+              -47b24c63
+            label: Text
+            name: '-47b24c63'
+            widget: string
+          - hint: 'Original text: Brand ID & Design Development, key: -6030bc1'
+            label: Text
+            name: '-6030bc1'
+            widget: string
+          - hint: 'Original text: Text Link, key: 3610230d'
+            label: Text
+            name: 3610230d
+            widget: string
+          - hint: 'Original text: /, key: 2f'
+            label: Text
+            name: 2f
+            widget: string
+          - hint: 'Original text: Public Relations, key: 61845100'
+            label: Text
+            name: '61845100'
+            widget: string
+          - hint: 'Original text: Consumer & Trade Media Relations, key: -285cb0e5'
+            label: Text
+            name: '-285cb0e5'
+            widget: string
+          - hint: >-
+              Original text: Press Release Writing & Distribution, key:
+              -1fb0f3c8
+            label: Text
+            name: '-1fb0f3c8'
+            widget: string
+          - hint: 'Original text: Media Toolkit Support, key: -77b3d0af'
+            label: Text
+            name: '-77b3d0af'
+            widget: string
+          - hint: 'Original text: Crisis Communications, key: b7a5c5a'
+            label: Text
+            name: b7a5c5a
+            widget: string
+          - hint: 'Original text: Reputation Management, key: -10b9db6'
+            label: Text
+            name: '-10b9db6'
+            widget: string
+          - hint: 'Original text: Strategic Communications, key: 894ae5d'
+            label: Text
+            name: 894ae5d
+            widget: string
+          - hint: 'Original text: Publicity & Promotions, key: 4e8d0745'
+            label: Text
+            name: 4e8d0745
+            widget: string
+          - hint: 'Original text: Corporate Communications, key: 1cfce4b8'
+            label: Text
+            name: 1cfce4b8
+            widget: string
+          - hint: 'Original text: Community Relations, key: 415c7240'
+            label: Text
+            name: 415c7240
+            widget: string
+          - hint: 'Original text: Media Events, key: -3f0eceeb'
+            label: Text
+            name: '-3f0eceeb'
+            widget: string
+          - hint: 'Original text: Event Management, key: -b214637'
+            label: Text
+            name: '-b214637'
+            widget: string
+          - hint: 'Original text: Event Planning, key: -7e5cad9d'
+            label: Text
+            name: '-7e5cad9d'
+            widget: string
+          - hint: 'Original text: Venue Selection, key: -5ab92725'
+            label: Text
+            name: '-5ab92725'
+            widget: string
+          - hint: 'Original text: Budgeting & Financial, key: -68224854'
+            label: Text
+            name: '-68224854'
+            widget: string
+          - hint: 'Original text: Event Design & Theme, key: -6cdeccad'
+            label: Text
+            name: '-6cdeccad'
+            widget: string
+          - hint: 'Original text: Vendor & Program Management, key: 28c36991'
+            label: Text
+            name: 28c36991
+            widget: string
+          - hint: 'Original text: Attendee Management, key: 77b34f69'
+            label: Text
+            name: 77b34f69
+            widget: string
+          - hint: 'Original text: Logistics & Operations, key: -6ec28ead'
+            label: Text
+            name: '-6ec28ead'
+            widget: string
+          - hint: 'Original text: On-Site Event Coordination, key: 2d6d2bec'
+            label: Text
+            name: 2d6d2bec
+            widget: string
+          - hint: 'Original text: Guerilla Event Activations, key: 7a05490a'
+            label: Text
+            name: 7a05490a
+            widget: string
+          - hint: 'Original text: Digital Marketing, key: 54547dde'
+            label: Text
+            name: 54547dde
+            widget: string
+          - hint: 'Original text: Email Marketing Strategy & Content, key: 472f3c90'
+            label: Text
+            name: 472f3c90
+            widget: string
+          - hint: 'Original text: Social Media Strategy & Content, key: -1069cedf'
+            label: Text
+            name: '-1069cedf'
+            widget: string
+          - hint: 'Original text: Paid Media Strategy & Media Buy, key: 51fbec13'
+            label: Text
+            name: 51fbec13
+            widget: string
+          - hint: 'Original text: Assets Design & Development, key: 2bf6b1bc'
+            label: Text
+            name: 2bf6b1bc
+            widget: string
+          - hint: 'Original text: Content Creation, key: -3278451a'
+            label: Text
+            name: '-3278451a'
+            widget: string
+          - hint: 'Original text: Digital Content Strategy, key: 5a8dd8a2'
+            label: Text
+            name: 5a8dd8a2
+            widget: string
+          - hint: 'Original text: Copywriting & Key Messaging, key: 42cb3950'
+            label: Text
+            name: 42cb3950
+            widget: string
+          - hint: 'Original text: Photography, Videography & Reels, key: 43790894'
+            label: Text
+            name: '43790894'
+            widget: string
+          - hint: 'Original text: Website Design, key: 245d2d23'
+            label: Text
+            name: 245d2d23
+            widget: string
+          - hint: 'Original text: Project Planning & Content Strategy, key: 231a8910'
+            label: Text
+            name: 231a8910
+            widget: string
+          - hint: >-
+              Original text: User Interface & User Experience (UI/UX), key:
+              -61f2dc24
+            label: Text
+            name: '-61f2dc24'
+            widget: string
+          - hint: 'Original text: Responsive Design, key: 3b871daa'
+            label: Text
+            name: 3b871daa
+            widget: string
+          - hint: 'Original text: Accessibility Audit, key: 44f69649'
+            label: Text
+            name: 44f69649
+            widget: string
+          - hint: 'Original text: Search Engine Optimization (SEO), key: -416e8279'
+            label: Text
+            name: '-416e8279'
+            widget: string
+          - hint: >-
+              Original text: Content Management System (CMS) Integration, key:
+              -24d778df
+            label: Text
+            name: '-24d778df'
+            widget: string
+          - hint: >-
+              Original text: E-commerce Development & 3rd Party Plug-Ins, key:
+              -3cb28fa0
+            label: Text
+            name: '-3cb28fa0'
+            widget: string
+          - hint: 'Original text: Maintenance & Support, key: -32e2e738'
+            label: Text
+            name: '-32e2e738'
+            widget: string
+          - hint: 'Original text: Domain Name Registration & Hosting, key: -6510738e'
+            label: Text
+            name: '-6510738e'
+            widget: string
+          - hint: 'Original text: Brand Development, key: -3069961e'
+            label: Text
+            name: '-3069961e'
+            widget: string
+          - hint: 'Original text: Discovery & Research, key: -18b996fb'
+            label: Text
+            name: '-18b996fb'
+            widget: string
+          - hint: 'Original text: Brand Positioning & Narrative, key: -39171088'
+            label: Text
+            name: '-39171088'
+            widget: string
+          - hint: 'Original text: Creative Pathway & Art Direction, key: 2ed93a61'
+            label: Text
+            name: 2ed93a61
+            widget: string
+          - hint: 'Original text: Character & Tone of Voice, key: -632e653a'
+            label: Text
+            name: '-632e653a'
+            widget: string
+          - hint: 'Original text: Identity & Logo Design, key: 62652117'
+            label: Text
+            name: '62652117'
+            widget: string
+          - hint: >-
+              Original text: Colour Palette & Key Brand Touch Points, key:
+              4774b7d1
+            label: Text
+            name: 4774b7d1
+            widget: string
+          - hint: 'Original text: Retail & Trade Support, key: 555b1d5c'
+            label: Text
+            name: 555b1d5c
+            widget: string
+          - hint: 'Original text: Industry Pitch Decks, key: 3292fca8'
+            label: Text
+            name: 3292fca8
+            widget: string
+          - hint: 'Original text: Trade Show Presence, key: 33c3f0e2'
+            label: Text
+            name: 33c3f0e2
+            widget: string
+          - hint: 'Original text: Retail Packaging Design, key: -22c47968'
+            label: Text
+            name: '-22c47968'
+            widget: string
+          - hint: 'Original text: Retail POS Design, key: -52a5cb99'
+            label: Text
+            name: '-52a5cb99'
+            widget: string
+          - hint: 'Original text: Graphic Design, key: 39cb9a36'
+            label: Text
+            name: 39cb9a36
+            widget: string
+          - hint: 'Original text: Business Stationary, key: -2489eec'
+            label: Text
+            name: '-2489eec'
+            widget: string
+          - hint: 'Original text: Way Finding Signage, key: -ce91b06'
+            label: Text
+            name: '-ce91b06'
+            widget: string
+          - hint: 'Original text: Vehicle Graphics, key: -72060ac1'
+            label: Text
+            name: '-72060ac1'
+            widget: string
+          - hint: 'Original text: Menu Design & Updates, key: 1022a76f'
+            label: Text
+            name: 1022a76f
+            widget: string
+          - hint: 'Original text: Promotional Materials, key: 4f16065a'
+            label: Text
+            name: 4f16065a
+            widget: string
+          - hint: 'Original text: Digital Assets Design, key: 1a7450d3'
+            label: Text
+            name: 1a7450d3
+            widget: string
+          - hint: 'Original text: Talk to us, key: -7d8e69f1'
+            label: Text
+            name: '-7d8e69f1'
+            widget: string
+          - hint: 'Original text:  about your goals., key: 5ad5e4c8'
+            label: Text
+            name: 5ad5e4c8
+            widget: string
+          - hint: 'Original text: First Name*, key: -33504eb1'
+            label: Text
+            name: '-33504eb1'
+            widget: string
+          - hint: 'Original text: Last Name*, key: -6eb65f0b'
+            label: Text
+            name: '-6eb65f0b'
+            widget: string
+          - hint: 'Original text: Email Address*, key: -42920906'
+            label: Text
+            name: '-42920906'
+            widget: string
+          - hint: 'Original text: Phone Number, key: -55f81185'
+            label: Text
+            name: '-55f81185'
+            widget: string
+          - hint: 'Original text: Job Title*, key: -22c9812b'
+            label: Text
+            name: '-22c9812b'
+            widget: string
+          - hint: 'Original text: Organization*, key: -4e0816c9'
+            label: Text
+            name: '-4e0816c9'
+            widget: string
+          - hint: 'Original text: Website, key: -53cd8785'
+            label: Text
+            name: '-53cd8785'
+            widget: string
+          - hint: >-
+              Original text: What is your organization's number one marketing
+              goal?, key: 44871eef
+            label: Text
+            name: 44871eef
+            widget: string
+          - hint: >-
+              Original text: What's a good day to reach you? We'll contact you
+              to confirm., key: 7a80a545
+            label: Text
+            name: 7a80a545
+            widget: string
+          - hint: >-
+              Original text: Have another minute? Tell us more about your
+              current pain points., key: 7853aeb4
+            label: Text
+            name: 7853aeb4
+            widget: string
+          - hint: >-
+              Original text: I'd like to receive occasional updates from SMC on
+              industry trends, case studies and all things PR & marketing., key:
+              4280c68f
+            label: Text
+            name: 4280c68f
+            widget: text
+          - hint: >-
+              Original text: Thank you! Your submission has been received!, key:
+              5a0ea5a1
+            label: Text
+            name: 5a0ea5a1
+            widget: string
+          - hint: >-
+              Original text: Oops! Something went wrong while submitting the
+              form., key: -7c112e99
+            label: Text
+            name: '-7c112e99'
+            widget: string
+          - hint: 'Original text: We, key: aee'
+            label: Text
+            name: aee
+            widget: string
+          - hint: 'Original text: nourish brands, key: -6b0d51b4'
+            label: Text
+            name: '-6b0d51b4'
+            widget: string
+          - hint: >-
+              Original text: by influencing consumers at every stage of their
+              journey., key: 26278e3
+            label: Text
+            name: '26278e3'
+            widget: string
+          - hint: >-
+              Original text: SMC is a full-service PR, creative & digital
+              marketing consultancy., key: f2d694b
+            label: Text
+            name: f2d694b
+            widget: string
+          - hint: 'Original text: Social Media Management, key: 202e1272'
+            label: Text
+            name: '202e1272'
+            widget: string
+          - hint: 'Original text: Photography & Videography, key: 4ca3f6a9'
+            label: Text
+            name: 4ca3f6a9
+            widget: string
+          - hint: 'Original text: Email Marketing, key: -7b77c19e'
+            label: Text
+            name: '-7b77c19e'
+            widget: string
+          - hint: 'Original text: Website Design & Development, key: -7851f01c'
+            label: Text
+            name: '-7851f01c'
+            widget: string
+          - hint: 'Original text: Branding & Graphic Design, key: -5f74e42b'
+            label: Text
+            name: '-5f74e42b'
+            widget: string
+          - hint: 'Original text: Making an impression , key: -4f17d6c7'
+            label: Text
+            name: '-4f17d6c7'
+            widget: string
+          - hint: >-
+              Original text: with the right people, at the right time., key:
+              4c6da3d1
+            label: Text
+            name: 4c6da3d1
+            widget: string
+          - hint: 'Original text: See how we do it, key: -526c2a55'
+            label: Text
+            name: '-526c2a55'
+            widget: string
+          - hint: 'Original text: Connecting people, key: 3417dcd7'
+            label: Text
+            name: 3417dcd7
+            widget: string
+          - hint: 'Original text: ‍, key: 200d'
+            label: Text
+            name: 200d
+            widget: string
+          - hint: 'Original text: through our own kind of hospitality, key: -28b2f5d2'
+            label: Text
+            name: '-28b2f5d2'
+            widget: string
+          - hint: 'Original text: Brand Profiling, key: 5b58aa8d'
+            label: Text
+            name: 5b58aa8d
+            widget: string
+          - hint: >-
+              Original text: We take a multi-faceted approach to media relations
+              and digital storytelling, securing high-profile feature
+              opportunities for dozens of clients and increase their media
+              exposure across a range of outlets., key: -34320437
+            label: Text
+            name: '-34320437'
+            widget: text
+          - hint: 'Original text: Opinion Matters, key: -d9dc90c'
+            label: Text
+            name: '-d9dc90c'
+            widget: string
+          - hint: >-
+              Original text: We perform as an extension of your team:
+              interpreting past results, planning, and adapting to overcome in
+              this evolutionary marketplace of public opinion and consumer-rated
+              reputations., key: 56391491
+            label: Text
+            name: '56391491'
+            widget: text
+          - hint: 'Original text: Trajectory Counts, key: 28debdfd'
+            label: Text
+            name: 28debdfd
+            widget: string
+          - hint: >-
+              Original text: We influence opinions some more, monitor
+              communities, measure results and make adjustments where necessary
+              to point your growth curve of customer retention and market
+              expansion - ever upwards., key: -1cc9863d
+            label: Text
+            name: '-1cc9863d'
+            widget: text
+          - hint: 'Original text: Meet the team , key: -6e346385'
+            label: Text
+            name: '-6e346385'
+            widget: string
+          - hint: >-
+              Original text: who will help you reach your business goals, key:
+              1fd6b40c
+            label: Text
+            name: 1fd6b40c
+            widget: string
+          - hint: 'Original text: , , key: 574'
+            label: Text
+            name: '574'
+            widget: string
+          - hint: 'Original text:  — , key: 45aac'
+            label: Text
+            name: 45aac
+            widget: string
+          - hint: >-
+              Original text: “As a well-established brand, last summer More
+              Rewards sought to refresh our brand presence on social media
+              without losing the existing brand equity we've built thus far. The
+              talented team at SMC Communications introduced a new social media
+              and PR strategy that speaks to the drivers of value for More
+              Rewards cardholders and points collectors, connecting content with
+              shoppers' (almost) daily experiences with More Rewards brands.,
+              key: 1e84fbad
+            label: Text
+            name: 1e84fbad
+            widget: text
+          - hint: >-
+              Original text: “With SMC we were able to further elevate our
+              digital brand position. We truly appreciate their dedication to
+              the details. (It doesn’t hurt that the SMC account team treats our
+              Marketing Team like we’re their one and only client either!)”,
+              key: -1ab43187
+            label: Text
+            name: '-1ab43187'
+            widget: text
+          - hint: >-
+              Original text: Courtney Jang, Senior Manager, Marketing & CRM,
+              More Rewards, key: -45b19067
+            label: Text
+            name: '-45b19067'
+            widget: string
+          - hint: 'Original text: ⟨, key: 27e8'
+            label: Text
+            name: '27e8'
+            widget: string
+          - hint: 'Original text: ⟩, key: 27e9'
+            label: Text
+            name: '27e9'
+            widget: string
+          - hint: 'Original text: As Seen In, key: 7649a71c'
+            label: Text
+            name: 7649a71c
+            widget: string
+          - hint: 'Original text: & Media Events, key: 183deecf'
+            label: Text
+            name: 183deecf
+            widget: string
+          - hint: >-
+              Original text: Event Planning / Influencer & Media relations /
+              Crisis Management, key: ea67f1b
+            label: Text
+            name: ea67f1b
+            widget: string
+          - hint: 'Original text: Creative Content &, key: -38c720f2'
+            label: Text
+            name: '-38c720f2'
+            widget: string
+          - hint: 'Original text: Marketing Strategies, key: -1f79b235'
+            label: Text
+            name: '-1f79b235'
+            widget: string
+          - hint: 'Original text: Photography / Copywriting, key: 264c27d3'
+            label: Text
+            name: 264c27d3
+            widget: string
+          - hint: >-
+              Original text: Email Marketing / Recipe Development, key:
+              -16eaabc8
+            label: Text
+            name: '-16eaabc8'
+            widget: string
+          - hint: 'Original text: Brand Identity &, key: -efd4043'
+            label: Text
+            name: '-efd4043'
+            widget: string
+          - hint: 'Original text: Design Development, key: -1df53e27'
+            label: Text
+            name: '-1df53e27'
+            widget: string
+          - hint: 'Original text: Brand Positioning / Art Direction, key: 37555631'
+            label: Text
+            name: '37555631'
+            widget: string
+          - hint: 'Original text: Graphic Design / Website Design, key: 4d2f49de'
+            label: Text
+            name: 4d2f49de
+            widget: string
+          - hint: 'Original text: Brands we’ve worked with, key: -2d9371e4'
+            label: Text
+            name: '-2d9371e4'
+            widget: string
+          - hint: "Original text: Let's talk\_, key: -68391785"
+            label: Text
+            name: '-68391785'
+            widget: string
+          - hint: >-
+              Original text: about your current marketing strategy and how to
+              stay nimble., key: 788cedf8
+            label: Text
+            name: 788cedf8
+            widget: string
+          - hint: 'Original text: Schedule your complimentary consult., key: -1caa5b8'
+            label: Text
+            name: '-1caa5b8'
+            widget: string
+          - hint: 'Original text: Book Now, key: 7b3ec11f'
+            label: Text
+            name: 7b3ec11f
+            widget: string
+          - hint: 'Original text: Career Opportunities, key: 365bf98f'
+            label: Text
+            name: 365bf98f
+            widget: string
+          - hint: >-
+              Original text: We exist to bring untold stories to light., key:
+              4c1756b4
+            label: Text
+            name: 4c1756b4
+            widget: string
+          - hint: 'Original text: View our current openings, key: 68e701b1'
+            label: Text
+            name: 68e701b1
+            widget: string
+          - hint: 'Original text: Current Openings, key: 8913922'
+            label: Text
+            name: '8913922'
+            widget: string
+          - hint: 'Original text: Social Media Manager, key: -21f7c422'
+            label: Text
+            name: '-21f7c422'
+            widget: string
+          - hint: >-
+              Original text: We're looking for a dynamic leader who is
+              passionate about storytelling, mentoring a team, and navigating
+              the ever-evolving media landscape., key: 4306bf4c
+            label: Text
+            name: 4306bf4c
+            widget: text
+          - hint: 'Original text: Reporting to:, key: b557c0d'
+            label: Text
+            name: b557c0d
+            widget: string
+          - hint: 'Original text:  Marketing Director, key: -622b335a'
+            label: Text
+            name: '-622b335a'
+            widget: string
+          - hint: 'Original text: Location:, key: 30167705'
+            label: Text
+            name: '30167705'
+            widget: string
+          - hint: 'Original text:  Vancouver (Hybrid), key: 77a29708'
+            label: Text
+            name: 77a29708
+            widget: string
+          - hint: 'Original text: Employment Type:, key: -72083cf4'
+            label: Text
+            name: '-72083cf4'
+            widget: string
+          - hint: 'Original text:  Permanent, Full-Time, key: 56387b29'
+            label: Text
+            name: 56387b29
+            widget: string
+          - hint: 'Original text: Compensation, key: -b93c786'
+            label: Text
+            name: '-b93c786'
+            widget: string
+          - hint: 'Original text: Salary:, key: -2db4f870'
+            label: Text
+            name: '-2db4f870'
+            widget: string
+          - hint: >-
+              Original text:  $52,000 - $62,000 (commensurate with experience),
+              key: -4266510
+            label: Text
+            name: '-4266510'
+            widget: string
+          - hint: 'Original text: Benefits:, key: -5d6ee722'
+            label: Text
+            name: '-5d6ee722'
+            widget: string
+          - hint: >-
+              Original text:  Comprehensive Health and Wellness Coverage, key:
+              -66704e9e
+            label: Text
+            name: '-66704e9e'
+            widget: string
+          - hint: 'Original text: Your Mission, key: -78ed2961'
+            label: Text
+            name: '-78ed2961'
+            widget: string
+          - hint: >-
+              Original text: SMC is on a mission to deliver cutting-edge PR and
+              omni-channel marketing-communications strategies that shape the
+              future of food, beverage, hospitality, and lifestyle brands. We
+              thrive on teamwork, inclusivity, and collaboration, driven by our
+              core values that fuel our purpose. We're looking for a dynamic
+              leader who is passionate about storytelling, mentoring a team, and
+              navigating the ever-evolving media landscape to drive meaningful
+              results for our clients., key: 6502bef
+            label: Text
+            name: 6502bef
+            widget: text
+          - hint: 'Original text: Learn More & Apply, key: -4001fa5b'
+            label: Text
+            name: '-4001fa5b'
+            widget: string
+          - hint: 'Original text: Head of Communications & PR, key: -3641eaaa'
+            label: Text
+            name: '-3641eaaa'
+            widget: string
+          - hint: >-
+              Original text: We’re looking for a talented individual to join our
+              team as the Head of Communications & PR, key: c8e7330
+            label: Text
+            name: c8e7330
+            widget: text
+          - hint: 'Original text:  Agency Director, key: -e915ad9'
+            label: Text
+            name: '-e915ad9'
+            widget: string
+          - hint: >-
+              Original text:  $90,000 - $100,000 (commensurate with experience),
+              key: -54c6ebbf
+            label: Text
+            name: '-54c6ebbf'
+            widget: string
+          - hint: >-
+              Original text: As the Head of Communications & PR, you'll lead our
+              client service team, bringing to life in-culture ideas that
+              resonate and engage. Your leadership will be rooted in our core
+              values—embracing growth, achieving ambitious results, taking
+              ownership, and winning together as a team. If you’re a seasoned PR
+              account director with a deep understanding of media and you're
+              ready to help us shape our agency’s future, we would love to
+              connect with you., key: -48d604e6
+            label: Text
+            name: '-48d604e6'
+            widget: text
+          - hint: 'Original text: Updated:, key: 52af9aff'
+            label: Text
+            name: 52af9aff
+            widget: string
+      - label: Links
+        name: links
+        file: cms/_data/links.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Links
+          - hint: 'Original link: /our-process/, key: -3692d550'
+            label: Link
+            name: '-3692d550'
+            widget: string
+          - hint: 'Original link: /our-work/, key: 7f22fa2e'
+            label: Link
+            name: 7f22fa2e
+            widget: string
+          - hint: 'Original link: /who-we-are/, key: -4ff59ea4'
+            label: Link
+            name: '-4ff59ea4'
+            widget: string
+          - hint: 'Original link: /lets-talk/, key: cc7be1d'
+            label: Link
+            name: cc7be1d
+            widget: string
+          - hint: 'Original link: tel:+160422199042, key: 730f84b2'
+            label: Link
+            name: 730f84b2
+            widget: string
+          - hint: 'Original link: mailto:talk@shelleymcarthur.com, key: 71067ac3'
+            label: Link
+            name: 71067ac3
+            widget: string
+          - hint: 'Original link: #, key: 23'
+            label: Link
+            name: '23'
+            widget: string
+          - hint: 'Original link: https://www.instagram.com/smccomm/, key: -2cf5d736'
+            label: Link
+            name: '-2cf5d736'
+            widget: string
+          - hint: >-
+              Original link:
+              https://www.linkedin.com/company/smccomm/mycompany/, key: 6fbe7302
+            label: Link
+            name: 6fbe7302
+            widget: string
+          - hint: 'Original link: https://www.facebook.com/smccomm, key: -623e81b'
+            label: Link
+            name: '-623e81b'
+            widget: string
+          - hint: 'Original link: /, key: 2f'
+            label: Link
+            name: 2f
+            widget: string
+          - hint: 'Original link: /our-work#services, key: 14d4c880'
+            label: Link
+            name: 14d4c880
+            widget: string
+          - hint: 'Original link: tel:+16042199042, key: -1e965266'
+            label: Link
+            name: '-1e965266'
+            widget: string
+          - hint: >-
+              Original link:
+              mailto:talk@shelleymcarthur.com?subject=Let's%20Talk, key:
+              70423915
+            label: Link
+            name: '70423915'
+            widget: string
+          - hint: 'Original link: /careers/, key: 38288f49'
+            label: Link
+            name: 38288f49
+            widget: string
+          - hint: 'Original link: /our-work#pr-media-events, key: -101a6555'
+            label: Link
+            name: '-101a6555'
+            widget: string
+          - hint: 'Original link: /our-work#content-marketing, key: -77105410'
+            label: Link
+            name: '-77105410'
+            widget: string
+          - hint: 'Original link: /our-work#branding-design, key: 2be5e6e'
+            label: Link
+            name: 2be5e6e
+            widget: string
+          - hint: 'Original link: #current-openings, key: -3a5a71ee'
+            label: Link
+            name: '-3a5a71ee'
+            widget: string
+          - hint: >-
+              Original link: https://smc.applytojobs.ca/marketing/32936, key:
+              -74c9e2da
+            label: Link
+            name: '-74c9e2da'
+            widget: string
+          - hint: >-
+              Original link:
+              https://smc.applytojobs.ca/public%20relations/32703, key: 6689cdd7
+            label: Link
+            name: 6689cdd7
+            widget: string
+      - label: Images
+        name: images
+        file: cms/_data/images.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Images
+          - label: Image
+            name: i14a1b670
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i75570c20
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i634f1888
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i224b8dfb
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 2949cd80
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 1824e5a4
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i38102fec
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 1ae9f6e4
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: ibde1b58
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 2a15be55
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-2ec28d06'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 4bc5256e
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '0'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 317f733b
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 3355e8f8
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-3846ddc2'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-33135f3e'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-2ed315'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-1628584e'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-2fe1b6ef'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 6fa583bc
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-5060b577'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-49e0ac72'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-7fdb079e'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 2705911a
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+publish_mode: editorial_workflow
